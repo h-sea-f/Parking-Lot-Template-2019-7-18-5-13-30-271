@@ -1,5 +1,5 @@
 CREATE TABLE `order`(
-`id` INT primary key AUTO_INCREMENT,
+`id` INT AUTO_INCREMENT primary key,
 `create_time` BIGINT NOT NULL ,
 `finish_time` BIGINT  ,
 `car_number` VARCHAR(255) NOT NULL,
