@@ -26,7 +26,7 @@ class ParkingLotRepositoryTest {
         parkingLot.setCapacity(50);
         parkingLotRepository.save(parkingLot);
         ParkingLot fetchParkingLot = parkingLotRepository.findByName(parkingLot.getName());
-        assertThat(fetchParkingLot.getName()).isEqualTo("ZHA PARKER");
+        assertThat(fetchParkingLot.getName()).isEqualTo("ZHA PARK");
         assertThat(fetchParkingLot.getAddress()).isEqualTo("ZHA");
         assertThat(fetchParkingLot.getCapacity()).isEqualTo(50);
     }
