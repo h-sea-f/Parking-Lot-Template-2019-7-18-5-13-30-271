@@ -29,4 +29,14 @@ public class ParkingLotController {
         return parkingLotService.getByPage(page);
     }
 
+    @DeleteMapping("/parkinglots/{name}")
+    public String deleteByName(@PathVariable String name){
+        return parkingLotService.deleteByName(name);
+    }
+
+    @PutMapping("/parkinglots/{name}")
+    public ParkingLot update(@PathVariable String name,@RequestBody ParkingLot parkingLot){
+        return parkingLotService.update(name,parkingLot);
+    }
+
 }

@@ -25,4 +25,14 @@ public class ParkingLotService {
         List<ParkingLot> parkingLots = parkingLotRepository.findAll();
         return parkingLots.stream().skip((page-1)*15).limit(15).collect(Collectors.toList());
     }
+
+    public String deleteByName(String name) {
+        parkingLotRepository.deleteById(name);
+        return "success";
+    }
+
+    public ParkingLot update(String name,ParkingLot parkingLot) {
+       parkingLot.setName(name);
+        return parkingLotRepository.save(parkingLot);
+    }
 }

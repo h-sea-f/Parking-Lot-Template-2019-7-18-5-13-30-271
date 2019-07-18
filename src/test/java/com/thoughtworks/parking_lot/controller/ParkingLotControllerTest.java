@@ -21,9 +21,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -65,5 +65,31 @@ class ParkingLotControllerTest {
         ResultActions result = mvc.perform(get("/parkinglots/{page}",1));
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].name").value("ZHA PARK"));
+    }
+
+    @Test
+    void should_delete_parkinglot_when_deleteByName_given_name() throws Exception {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setName("ZHA PARK");
+        parkingLot.setAddress("ZHA");
+        parkingLot.setCapacity(50);
+        when(parkingLotService.deleteByName(anyString())).thenReturn("success");
+        ResultActions result = mvc.perform(delete("/parkinglots/{name}",parkingLot.getName()));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$").value("success"));
+    }
+
+    @Test
+    void should_update_when_update() throws Exception {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setName("ZHA PARK");
+        parkingLot.setAddress("ZHA");
+        parkingLot.setCapacity(50);
+        when(parkingLotService.update(anyString(),ArgumentMatchers.any(ParkingLot.class))).thenReturn(parkingLot);
+        ResultActions result = mvc.perform(put("/parkinglots/{name}",parkingLot.getName())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(parkingLot)));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.capacity").value(50));
     }
 }
