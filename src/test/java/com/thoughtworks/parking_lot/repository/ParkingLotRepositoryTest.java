@@ -22,14 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParkingLotRepositoryTest {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
-//    @Autowired
-//    private WebApplicationContext wac;
-//    protected MockMvc mockMvc;
-//
-//    @BeforeEach
-//    void setup(){
-//        mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-//    }
 
     @Test
     public void should_save_and_fetch_parkinglot() {
@@ -43,15 +35,5 @@ class ParkingLotRepositoryTest {
         assertThat(fetchParkingLot.getAddress()).isEqualTo("ZHA");
         assertThat(fetchParkingLot.getCapacity()).isEqualTo(50);
     }
-
-//    @Test
-//    public void should_return_parkinglot(){
-//        ParkingLot parkingLot = new ParkingLot();
-//        parkingLot.setAddress("ZHA");
-//        parkingLot.setName("ZHA PARK");
-//        parkingLot.setCapacity(50);
-//        parkingLotRepository.save(parkingLot);
-//        mockMvc.perform()
-//    }
 
 }

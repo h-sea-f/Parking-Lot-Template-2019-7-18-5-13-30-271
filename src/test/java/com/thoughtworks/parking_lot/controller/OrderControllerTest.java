@@ -52,4 +52,17 @@ public class OrderControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1));
     }
+
+    @Test
+    public void should_return_order_when_takeCar() throws Exception {
+        Order order =new Order();
+        order.setId(1);
+        order.setCreateTime(2019071822);
+        order.setState(1);
+        order.setCarNumber("123456");
+        when(orderService.takeCar(anyString())).thenReturn(order);
+        ResultActions result = mvc.perform(put("/orders/{carNumber}",order.getCarNumber()));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.carNumber").value("123456"));
+    }
 }
