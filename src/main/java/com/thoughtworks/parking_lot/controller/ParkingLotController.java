@@ -35,9 +35,9 @@ public class ParkingLotController {
         return parkingLotService.deleteByName(name);
     }
 
-    @PutMapping("/parkinglots/{name}")
-    public ParkingLot update(@PathVariable String name,@RequestBody ParkingLot parkingLot){
-        return parkingLotService.update(name,parkingLot);
+    @PutMapping("/parkinglots/{name}/capacity/{capacity}")
+    public ParkingLot update(@PathVariable String name,@PathVariable int capacity){
+        return parkingLotService.update(name,capacity);
     }
 
     @GetMapping("/parkinglots/{name}")

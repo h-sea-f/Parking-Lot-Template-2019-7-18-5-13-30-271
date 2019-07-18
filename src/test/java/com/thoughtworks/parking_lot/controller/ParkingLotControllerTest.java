@@ -85,12 +85,9 @@ class ParkingLotControllerTest {
         parkingLot.setName("ZHA PARK");
         parkingLot.setAddress("ZHA");
         parkingLot.setCapacity(50);
-        when(parkingLotService.update(anyString(),ArgumentMatchers.any(ParkingLot.class))).thenReturn(parkingLot);
-        ResultActions result = mvc.perform(put("/parkinglots/{name}",parkingLot.getName())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(parkingLot)));
-        result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.capacity").value(50));
+        when(parkingLotService.update(anyString(),anyInt())).thenReturn(parkingLot);
+        ResultActions result = mvc.perform(put("/parkinglots/{name}/capacity/{capacity}",parkingLot.getName(),60));
+        result.andExpect(status().isOk());
     }
 
     @Test

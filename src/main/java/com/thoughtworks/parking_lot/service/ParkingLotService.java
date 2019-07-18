@@ -31,8 +31,9 @@ public class ParkingLotService {
         return "success";
     }
 
-    public ParkingLot update(String name,ParkingLot parkingLot) {
-       parkingLot.setName(name);
+    public ParkingLot update(String name,int capacity) {
+       ParkingLot parkingLot = parkingLotRepository.findByName(name);
+       parkingLot.setCapacity(capacity);
         return parkingLotRepository.save(parkingLot);
     }
 
