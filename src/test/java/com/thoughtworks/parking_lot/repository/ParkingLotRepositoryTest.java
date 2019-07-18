@@ -1,11 +1,16 @@
 package com.thoughtworks.parking_lot.repository;
 
 import com.thoughtworks.parking_lot.model.ParkingLot;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
@@ -17,6 +22,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParkingLotRepositoryTest {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
+//    @Autowired
+//    private WebApplicationContext wac;
+//    protected MockMvc mockMvc;
+//
+//    @BeforeEach
+//    void setup(){
+//        mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+//    }
 
     @Test
     public void should_save_and_fetch_parkinglot() {
@@ -30,5 +43,15 @@ class ParkingLotRepositoryTest {
         assertThat(fetchParkingLot.getAddress()).isEqualTo("ZHA");
         assertThat(fetchParkingLot.getCapacity()).isEqualTo(50);
     }
+
+//    @Test
+//    public void should_return_parkinglot(){
+//        ParkingLot parkingLot = new ParkingLot();
+//        parkingLot.setAddress("ZHA");
+//        parkingLot.setName("ZHA PARK");
+//        parkingLot.setCapacity(50);
+//        parkingLotRepository.save(parkingLot);
+//        mockMvc.perform()
+//    }
 
 }
