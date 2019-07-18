@@ -62,7 +62,7 @@ class ParkingLotControllerTest {
         parkingLot1.setCapacity(20);
         List<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot,parkingLot1));
         when(parkingLotService.getByPage(anyInt())).thenReturn(parkingLots);
-        ResultActions result = mvc.perform(get("/parkinglots/{page}",1));
+        ResultActions result = mvc.perform(get("/parkinglots?page={page}",1));
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].name").value("ZHA PARK"));
     }
@@ -91,5 +91,17 @@ class ParkingLotControllerTest {
                 .content(new ObjectMapper().writeValueAsString(parkingLot)));
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.capacity").value(50));
+    }
+
+    @Test
+    void should_return_parkinglot_when_findByName_given_name() throws Exception {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setName("ZHA PARK");
+        parkingLot.setAddress("ZHA");
+        parkingLot.setCapacity(50);
+        when(parkingLotService.findByName(anyString())).thenReturn(parkingLot);
+        ResultActions result = mvc.perform(get("/parkinglots/{name}",parkingLot.getName()));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("ZHA PARK"));
     }
 }

@@ -35,4 +35,8 @@ public class ParkingLotService {
        parkingLot.setName(name);
         return parkingLotRepository.save(parkingLot);
     }
+
+    public ParkingLot findByName(String name) {
+        return parkingLotRepository.findByName(name);
+    }
 }
