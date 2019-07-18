@@ -3,7 +3,7 @@ package com.thoughtworks.parking_lot.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.parking_lot.model.ParkingLot;
-import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
+import com.thoughtworks.parking_lot.service.ParkingLotService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -15,8 +15,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +34,7 @@ class ParkingLotControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private ParkingLotRepository parkingLotRepository;
+    private ParkingLotService parkingLotService;
 
     @Test
     void should_add_and_return_parkinglot() throws Exception {
@@ -36,11 +42,28 @@ class ParkingLotControllerTest {
         parkingLot.setName("ZHA PARK");
         parkingLot.setAddress("ZHA");
         parkingLot.setCapacity(50);
-        when(parkingLotRepository.save(ArgumentMatchers.any(ParkingLot.class))).thenReturn(parkingLot);
+        when(parkingLotService.save(ArgumentMatchers.any(ParkingLot.class))).thenReturn(parkingLot);
         ResultActions result = mvc.perform(post("/parkinglots")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(parkingLot)));
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("ZHA PARK"));
+    }
+
+    @Test
+    void should_return_parkinglots_when_getByPage_given_page() throws Exception {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setName("ZHA PARK");
+        parkingLot.setAddress("ZHA");
+        parkingLot.setCapacity(50);
+        ParkingLot parkingLot1 = new ParkingLot();
+        parkingLot1.setAddress("ZHA");
+        parkingLot1.setName("ZHA PARK1");
+        parkingLot1.setCapacity(20);
+        List<ParkingLot> parkingLots = new ArrayList<>(Arrays.asList(parkingLot,parkingLot1));
+        when(parkingLotService.getByPage(anyInt())).thenReturn(parkingLots);
+        ResultActions result = mvc.perform(get("/parkinglots/{page}",1));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].name").value("ZHA PARK"));
     }
 }

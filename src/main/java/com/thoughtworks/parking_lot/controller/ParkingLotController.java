@@ -2,11 +2,9 @@ package com.thoughtworks.parking_lot.controller;
 
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
+import com.thoughtworks.parking_lot.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,16 +12,21 @@ import java.util.List;
 
 public class ParkingLotController {
     @Autowired
-    private ParkingLotRepository parkingLotRepository;
+    private ParkingLotService parkingLotService;
 
     @GetMapping("/parkinglots")
     public List<ParkingLot> findAll() {
-        return parkingLotRepository.findAll();
+        return parkingLotService.findAll();
     }
 
     @PostMapping("/parkinglots")
     public ParkingLot create(@RequestBody ParkingLot parkingLot){
-        return parkingLotRepository.save(parkingLot);
+        return parkingLotService.save(parkingLot);
+    }
+
+    @GetMapping("/parkinglots/{page}")
+    public List<ParkingLot> getByPage(@PathVariable int page){
+        return parkingLotService.getByPage(page);
     }
 
 }
