@@ -1,4 +1,4 @@
-CREATE TABLE `order`(
+CREATE TABLE `parkingLotOrder`(
 `id` INT AUTO_INCREMENT primary key,
 `create_time` BIGINT NOT NULL ,
 `finish_time` BIGINT  ,

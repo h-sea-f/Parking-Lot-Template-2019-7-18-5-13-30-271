@@ -14,16 +14,16 @@ public class ParkingLot {
     @Column(nullable = false)
     private int capacity;
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<ParkingLotOrder> getParkingLotOrders() {
+        return parkingLotOrders;
     }
 
     @OneToMany
     @JoinColumn(name="name")
-    List<Order> orders;
+    List<ParkingLotOrder> parkingLotOrders;
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setParkingLotOrders(List<ParkingLotOrder> parkingLotOrders) {
+        this.parkingLotOrders = parkingLotOrders;
     }
 
     public String getName() {

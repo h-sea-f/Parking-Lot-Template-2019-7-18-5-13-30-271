@@ -3,8 +3,8 @@ package com.thoughtworks.parking_lot.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "parkinglotorder")
+public class ParkingLotOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

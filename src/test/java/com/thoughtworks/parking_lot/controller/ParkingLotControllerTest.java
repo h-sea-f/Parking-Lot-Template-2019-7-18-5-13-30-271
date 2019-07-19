@@ -101,4 +101,5 @@ class ParkingLotControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("ZHA PARK"));
     }
+
 }
