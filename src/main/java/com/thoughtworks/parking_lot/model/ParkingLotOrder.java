@@ -14,7 +14,7 @@ public class ParkingLotOrder {
     private long createTime;
     private long finishTime;
     @Column(columnDefinition = "int default 1")
-    private int state;
+    private int state;//private boolean state;
     private String name;
 
     public String getCarNumber() {

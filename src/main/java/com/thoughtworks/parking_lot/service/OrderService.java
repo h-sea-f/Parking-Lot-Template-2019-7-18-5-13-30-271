@@ -1,6 +1,6 @@
 package com.thoughtworks.parking_lot.service;
 
-import com.thoughtworks.parking_lot.model.NoSpareSpaceException;
+import com.thoughtworks.parking_lot.execption.NoSpareSpaceException;
 import com.thoughtworks.parking_lot.model.ParkingLotOrder;
 import com.thoughtworks.parking_lot.repository.OrderRepository;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;

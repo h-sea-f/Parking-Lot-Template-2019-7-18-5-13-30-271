@@ -1,6 +1,6 @@
 package com.thoughtworks.parking_lot.controller;
 
-import com.thoughtworks.parking_lot.model.NoSpareSpaceException;
+import com.thoughtworks.parking_lot.execption.NoSpareSpaceException;
 import com.thoughtworks.parking_lot.model.ParkingLotOrder;
 import com.thoughtworks.parking_lot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +20,5 @@ public class OrderController {
     public ParkingLotOrder takeCar(@PathVariable String carNumber){
         return orderService.takeCar(carNumber);
     }
+
 }

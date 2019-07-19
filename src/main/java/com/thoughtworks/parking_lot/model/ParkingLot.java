@@ -13,14 +13,13 @@ public class ParkingLot {
     private String address;
     @Column(nullable = false)
     private int capacity;
+    @OneToMany
+    @JoinColumn(name = "name")
+    List<ParkingLotOrder> parkingLotOrders;
 
     public List<ParkingLotOrder> getParkingLotOrders() {
         return parkingLotOrders;
     }
-
-    @OneToMany
-    @JoinColumn(name="name")
-    List<ParkingLotOrder> parkingLotOrders;
 
     public void setParkingLotOrders(List<ParkingLotOrder> parkingLotOrders) {
         this.parkingLotOrders = parkingLotOrders;
